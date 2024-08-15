@@ -17,11 +17,6 @@
     <ul id="service-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
 
-      <li>
-        <a href="encode_violation.php">
-          <i class="bi bi-circle"></i><span>Encode Violation</span>
-        </a>
-      </li>
 
       <li>
         <a href="list_of_violators.php">
@@ -29,36 +24,8 @@
         </a>
       </li>
 
-
-
-
-
-
     </ul>
   </li><!-- End Components Nav -->
-
-
-
-
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#patrolbase-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-person-fill-lock"></i><span>Patrol Base Management</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="patrolbase-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-
-      <li>
-        <a href="encode_patrolbase.php">
-          <i class="bi bi-circle"></i><span>Encode Patrol Base</span>
-        </a>
-      </li>
-
-
-
-    </ul>
-  </li><!-- End Components Nav -->
-
-
 
 
 

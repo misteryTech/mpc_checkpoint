@@ -6,6 +6,22 @@
     <?php
         include("admin_topnav.php");
         include("admin_sidenav.php");
+
+
+        $sql = "SELECT patrol_id, patrol_basename FROM patrol_base_tbl LIMIT 10";
+        $result = $connection->query($sql);
+
+        $patrolbase_name = [];
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $patrolbase_name[] = $row;
+            }
+        }
+
+
+
+
+
     ?>
 
 <main id="main" class="main">
@@ -32,8 +48,15 @@
           <form action="process/encode_registration_violation.php" method="post" enctype="multipart/form-data" class="row g-3">
 
             <div class="col-md-6">
-              <label for="officer_name" class="form-label">Officer Name</label>
-              <input type="text" class="form-control" id="officer_name" name="officer_name" required>
+              <label for="officer_name" class="form-label">Patrol Based ID</label>
+              <select name="patrol_base" id="patrol_base" class="form-select" onchange="updateCustomerInfo()">
+                                        <option value="" selected>Select Customer</option>
+                                        <?php foreach ($patrolbase_name as $patrol_name) : ?>
+                                            <option value="<?php echo htmlspecialchars($patrol_name['patrol_id']); ?>">
+                                                <?php echo htmlspecialchars($patrol_name['patrol_basename']); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                </select>
             </div>
 
             <div class="col-md-6">
