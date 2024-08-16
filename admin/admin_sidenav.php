@@ -59,8 +59,53 @@
   </li><!-- End Components Nav -->
 
 
+  <li class="nav-item">
+    <a class="nav-link collapsed" data-bs-target="#user-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-person-fill-lock"></i><span>Admin Management</span><i class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="user-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+      <li>
+        <a href="register_user.php">
+          <i class="bi bi-circle"></i><span>Register User/Admin</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="user_list.php">
+          <i class="bi bi-circle"></i><span>List of Users</span>
+        </a>
+      </li>
 
 
+
+    </ul>
+  </li><!-- End Components Nav -->
+
+
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" data-bs-target="#Profiling-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-person-fill-lock"></i><span>Profiling</span><i class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="Profiling-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+      <li>
+        <a href="register_user.php">
+          <i class="bi bi-circle"></i><span>User Request</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="user_list.php">
+          <i class="bi bi-circle"></i><span>User Verification</span>
+        </a>
+      </li>
+
+
+
+    </ul>
+  </li><!-- End Components Nav -->
 
 
 </ul>

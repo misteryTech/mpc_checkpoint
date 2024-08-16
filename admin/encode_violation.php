@@ -7,7 +7,6 @@
         include("admin_topnav.php");
         include("admin_sidenav.php");
 
-
         $sql = "SELECT patrol_id, patrol_basename FROM patrol_base_tbl LIMIT 10";
         $result = $connection->query($sql);
 
@@ -17,11 +16,6 @@
                 $patrolbase_name[] = $row;
             }
         }
-
-
-
-
-
     ?>
 
 <main id="main" class="main">
@@ -47,16 +41,17 @@
 
           <form action="process/encode_registration_violation.php" method="post" enctype="multipart/form-data" class="row g-3">
 
+            <!-- Vehicle Information Section -->
             <div class="col-md-6">
-              <label for="officer_name" class="form-label">Patrol Based ID</label>
+              <label for="patrol_base" class="form-label">Patrol Based ID</label>
               <select name="patrol_base" id="patrol_base" class="form-select" onchange="updateCustomerInfo()">
-                                        <option value="" selected>Select Customer</option>
-                                        <?php foreach ($patrolbase_name as $patrol_name) : ?>
-                                            <option value="<?php echo htmlspecialchars($patrol_name['patrol_id']); ?>">
-                                                <?php echo htmlspecialchars($patrol_name['patrol_basename']); ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                </select>
+                <option value="" selected>Select Patrol Base</option>
+                <?php foreach ($patrolbase_name as $patrol_name) : ?>
+                    <option value="<?php echo htmlspecialchars($patrol_name['patrol_id']); ?>">
+                        <?php echo htmlspecialchars($patrol_name['patrol_basename']); ?>
+                    </option>
+                <?php endforeach; ?>
+              </select>
             </div>
 
             <div class="col-md-6">
@@ -76,10 +71,23 @@
               <input type="text" class="form-control" id="vehicle_plate_number" name="vehicle_plate_number" required>
             </div>
 
+            <hr class="my-4">
+
+
+            <div class="col-md-7">
+            <img id="imagePreview" src="" alt="Image Preview" style="display:none; margin-top:10px; max-width:100%; height:auto; border:1px solid #ccc; padding:5px; max-height:200px;" />
+              <label for="driver_image" class="form-label">Driver Image</label>
+              <input type="file" class="form-control" id="driver_image" name="driver_image" required>
+
+          </div>
+
+
+            <!-- Driver Information Section -->
             <div class="col-md-6">
               <label for="driver_name" class="form-label">Driver Name</label>
               <input type="text" class="form-control" id="driver_name" name="driver_name" required>
             </div>
+
 
             <div class="col-md-6">
               <label for="violation_location" class="form-label">Violation Location</label>
@@ -120,3 +128,20 @@
 
 </main><!-- End #main -->
 <?php include("admin_footer.php"); ?>
+<script>
+    document.getElementById('driver_image').addEventListener('change', function(event) {
+        var imagePreview = document.getElementById('imagePreview');
+        var file = event.target.files[0];
+
+        if (file) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';  // Show the image
+            }
+
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
