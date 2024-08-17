@@ -71,12 +71,6 @@
         </a>
       </li>
 
-      <li>
-        <a href="user_list.php">
-          <i class="bi bi-circle"></i><span>List of Users</span>
-        </a>
-      </li>
-
 
 
     </ul>
@@ -91,14 +85,14 @@
     <ul id="Profiling-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
       <li>
-        <a href="register_user.php">
+        <a href="user_request.php">
           <i class="bi bi-circle"></i><span>User Request</span>
         </a>
       </li>
 
       <li>
-        <a href="user_list.php">
-          <i class="bi bi-circle"></i><span>User Verification</span>
+        <a href="released_cert.php">
+          <i class="bi bi-circle"></i><span>Released Certification</span>
         </a>
       </li>
 

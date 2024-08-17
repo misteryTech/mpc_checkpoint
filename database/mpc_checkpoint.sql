@@ -11,7 +11,7 @@
  Target Server Version : 100428 (10.4.28-MariaDB)
  File Encoding         : 65001
 
- Date: 16/08/2024 16:51:32
+ Date: 17/08/2024 16:47:01
 */
 
 SET NAMES utf8mb4;
@@ -60,6 +60,35 @@ INSERT INTO `patrolbase_assign_tbl` VALUES (3, 1, 'asd', 'asd', 'Police Director
 INSERT INTO `patrolbase_assign_tbl` VALUES (4, 1, 'asd', 'asd', 'Chief Superintendent', '2024-08-15', 'asd', NULL, NULL);
 
 -- ----------------------------
+-- Table structure for profiles
+-- ----------------------------
+DROP TABLE IF EXISTS `profiles`;
+CREATE TABLE `profiles`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `last_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `licensed_no` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `driver_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of profiles
+-- ----------------------------
+INSERT INTO `profiles` VALUES (1, 'asd', 'asd', 'ASD@GMAIL.COM', 'asd', 'asd', 'uploads/photo_2024-05-20_07-17-54.jpg', '2024-08-17 13:21:06', NULL);
+INSERT INTO `profiles` VALUES (2, 'asd', 'asd', 'ASD@GMAIL.COM', 'asd', 'asd', 'uploads/photo_2024-05-20_07-17-54.jpg', '2024-08-17 13:21:15', NULL);
+INSERT INTO `profiles` VALUES (3, 'asd', 'asd', 'asd1231231@gmail.com', 'asd', 'asd', 'uploads/luffy_shen.png', '2024-08-17 13:28:56', NULL);
+INSERT INTO `profiles` VALUES (4, 'asd', 'asd', 'asd1231231@gmail.com', 'asd', 'asd', 'uploads/luffy_shen.png', '2024-08-17 13:29:55', NULL);
+INSERT INTO `profiles` VALUES (5, 'as', 'asd', 'asd1231231@gmail.com', '123', 'asd', 'uploads/302597659_483170430485654_5599727337940796982_n.jpg', '2024-08-17 13:31:49', NULL);
+INSERT INTO `profiles` VALUES (6, 'asd', 'asd', 'ASD@GMAIL.COM', 'asd', 'as', 'uploads/302597659_483170430485654_5599727337940796982_n.jpg', '2024-08-17 13:33:43', 'Request');
+INSERT INTO `profiles` VALUES (7, 'reymark', 'escalante', 'asdasd@gmail.com', 'asads', 'asdasd', 'uploads/luffy_shen.png', '2024-08-17 13:52:32', 'Verified');
+INSERT INTO `profiles` VALUES (8, 'ray leight mart ', 'Escalante', 'reymarkescalante@Gmail.com', '09399213074', '1904', 'uploads/1705311630014.jpg', '2024-08-17 14:30:09', 'Request');
+
+-- ----------------------------
 -- Table structure for traffic_violations
 -- ----------------------------
 DROP TABLE IF EXISTS `traffic_violations`;
@@ -68,7 +97,9 @@ CREATE TABLE `traffic_violations`  (
   `officer_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `violation_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `vehicle_plate_number` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `driver_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `driver_licensed` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `driver_lastname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `driver_firstname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `driver_image_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `violation_location` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `violation_date` date NOT NULL,
@@ -83,7 +114,7 @@ CREATE TABLE `traffic_violations`  (
 -- ----------------------------
 -- Records of traffic_violations
 -- ----------------------------
-INSERT INTO `traffic_violations` VALUES (1, '1', 'illegal_parking', '123123', 'Miste Ry', 'uploads/driver_images/photo_2024-05-20_07-17-54.jpg', 'Tambler', '2024-08-16', '04:52:00', 'uploads/evidence/luffy_shen.png', 'asd', 'Unsolved', '2024-08-16 15:51:35');
+INSERT INTO `traffic_violations` VALUES (1, '1', 'running_red_light', '123123', '1904', 'Escalante', 'Reymark', 'uploads/driver_images/picture.png', 'aa', '2024-08-15', '14:57:00', 'uploads/evidence/picture.png', 'asd', 'Unsolved', '2024-08-17 14:56:23');
 
 -- ----------------------------
 -- Table structure for user_table
@@ -105,7 +136,6 @@ CREATE TABLE `user_table`  (
 -- ----------------------------
 -- Records of user_table
 -- ----------------------------
-INSERT INTO `user_table` VALUES (1, 'hi', 'hello', 'admin', 'admin', 'admin', '2024-08-13', NULL, NULL);
 INSERT INTO `user_table` VALUES (3, 'Starbrigh', 'Gensan', 'user', 'admin', 'admin', '2024-08-16', 'active', 'admin@gmail.com');
 
 SET FOREIGN_KEY_CHECKS = 1;

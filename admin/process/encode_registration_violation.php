@@ -6,7 +6,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $patrol_base = $_POST["patrol_base"];
     $violation_type = $_POST["violation_type"];
     $vehicle_plate_number = $_POST["vehicle_plate_number"];
-    $driver_name = $_POST["driver_name"];
+    $driver_firstname = $_POST["driver_firstname"];
+    $driver_lastname = $_POST["driver_lastname"];
+    $driver_licensed = $_POST["driver_licensed"];
     $violation_location = $_POST["violation_location"];
     $violation_date = $_POST["date"];
     $violation_time = $_POST["time"];
@@ -33,15 +35,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
 
+    // Corrected SQL statement and bind_param
     $stmt = $connection->prepare("INSERT INTO traffic_violations (
-            officer_name, violation_type, vehicle_plate_number,
-            driver_name, driver_image_path, violation_location,
-            violation_date, violation_time, evidence_path, additional_notes, status
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            officer_name, violation_type, vehicle_plate_number, driver_image_path,
+            violation_location, violation_date, violation_time, evidence_path,
+            additional_notes, status, driver_firstname, driver_lastname, driver_licensed
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("sssssssssss", $patrol_base, $violation_type, $vehicle_plate_number, $driver_name,
-                      $driver_image_path, $violation_location, $violation_date, $violation_time,
-                      $evidence_path, $additional_notes, $status);
+    $stmt->bind_param("sssssssssssss", $patrol_base, $violation_type, $vehicle_plate_number,
+                      $driver_image_path, $violation_location, $violation_date,
+                      $violation_time, $evidence_path, $additional_notes,
+                      $status, $driver_firstname, $driver_lastname, $driver_licensed);
 
     if ($stmt->execute()) {
         echo "<script>alert('Violation recorded successfully');</script>";

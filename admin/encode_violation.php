@@ -59,10 +59,10 @@
               <select class="form-select" id="violation_type" name="violation_type" required>
                 <option value="">Select a violation</option>
                 <option value="speeding">Speeding</option>
-                <option value="illegal_parking">Illegal Parking</option>
-                <option value="reckless_driving">Reckless Driving</option>
-                <option value="drunk_driving">Drunk Driving</option>
-                <option value="running_red_light">Running a Red Light</option>
+                <option value="Illegal Parking">Illegal Parking</option>
+                <option value="Reckless Driving">Reckless Driving</option>
+                <option value="Drunk Driving">Drunk Driving</option>
+                <option value="Running a Red Light">Running a Red Light</option>
               </select>
             </div>
 
@@ -84,9 +84,22 @@
 
             <!-- Driver Information Section -->
             <div class="col-md-6">
-              <label for="driver_name" class="form-label">Driver Name</label>
-              <input type="text" class="form-control" id="driver_name" name="driver_name" required>
+              <label for="driver_firstname" class="form-label">Driver Firstname</label>
+              <input type="text" class="form-control" id="driver_firstname" name="driver_firstname" required>
             </div>
+
+              <!-- Driver Information Section -->
+              <div class="col-md-6">
+              <label for="driver_lastname" class="form-label">Driver lastname</label>
+              <input type="text" class="form-control" id="driver_lastname" name="driver_lastname" required>
+            </div>
+
+             <!-- Driver Information Section -->
+             <div class="col-md-6">
+              <label for="driver_licensed" class="form-label">Driver Licensed No.</label>
+              <input type="text" class="form-control" id="driver_licensed" name="driver_licensed" required>
+            </div>
+
 
 
             <div class="col-md-6">

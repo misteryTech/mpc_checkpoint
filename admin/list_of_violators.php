@@ -63,7 +63,7 @@
                                                         echo "<tr>";
                                                         echo "<td>" . $count . "</td>";
                                                         echo "<td>" . $row['officer_name'] . "</td>";
-                                                        echo "<td>" . $row['driver_name'] . "</td>";
+                                                        echo "<td>" . $row['driver_firstname'] . "</td>";
                                                         echo "<td>" . $row['violation_type'] . "</td>";
                                                         echo "<td>" . $row['violation_date'] . "</td>";
                                                         echo "<td><h5><span class='badge rounded-pill bg-success'>" . $row['status'] . "</span></h5></td>";
@@ -100,7 +100,7 @@
                                                         echo "<tr>";
                                                         echo "<td>" . $count . "</td>";
                                                         echo "<td>" . $row['officer_name'] . "</td>";
-                                                        echo "<td>" . $row['driver_name'] . "</td>";
+                                                        echo "<td>" . $row['driver_firstname'] . "</td>";
                                                         echo "<td>" . $row['violation_type'] . "</td>";
                                                         echo "<td>" . $row['violation_date'] . "</td>";
                                                         echo "<td><h5><span class='badge rounded-pill bg-danger'>" . $row['status'] . "</span></h5></td>";
