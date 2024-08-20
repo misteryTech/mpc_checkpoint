@@ -1,21 +1,21 @@
 <?php
-    include("admin_header.php");
+include("admin_header.php");
 ?>
 <body>
 
-    <!-- ======= Header ======= -->
-    <!-- ======= Sidebar ======= -->
-    <?php
-        include("admin_topnav.php");
-        include("admin_sidenav.php");
+<!-- ======= Header ======= -->
+<!-- ======= Sidebar ======= -->
+<?php
+    include("admin_topnav.php");
+    include("admin_sidenav.php");
 
-        $licensed_no = isset($_GET['licensed_no']) ? $_GET['licensed_no'] : '';
-    ?>
+    $licensed_no = isset($_GET['licensed_no']) ? $_GET['licensed_no'] : '';
+?>
 
 <main id="main" class="main">
 
   <div class="pagetitle">
-    <h1>Review Licensed ID: <?php echo $licensed_no; ?></h1>
+    <h1>Review Licensed ID: <?php echo htmlspecialchars($licensed_no); ?></h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -64,7 +64,7 @@
                       echo "<td>".$row['violation_type']."</td>";
                       echo "<td>".$row['status']."</td>";
                       echo "<td>".$row['violation_date']."</td>";
-                      echo "<td><img src='process/" . $row['driver_image_path'] . "' alt='Driver Image' style='width: 50px; height: 50px;'></td>";
+                      echo "<td><img src='process/" . htmlspecialchars($row['driver_image_path']) . "' alt='Driver Image' style='width: 50px; height: 50px;'></td>";
                       echo "<td class='d-flex'>";
                       echo "<a class='btn btn-primary me-2' href='edit_violation.php?violation_id=" . htmlspecialchars($row['violation_id']) . "'>Edit</a>";
                       echo "<a class='btn btn-danger me-2' href='delete_violation.php?violation_id=" . htmlspecialchars($row['violation_id']) . "'>Delete</a>";
@@ -77,15 +77,19 @@
                   echo '</tbody></table>';
               } else {
                   // Display No Violation Certificate
-                  echo '<div id="noViolationCertificate" class="certificate">
+                  echo '<div id="noViolationCertificate" class="certificate" style="display:none;">
                           <h2>No Violation Certificate</h2>
                           <p>This is to certify that the driver with License Number <strong>' . htmlspecialchars($licensed_no) . '</strong> has no recorded violations in our system.</p>
-                          <p>Date: ' . date("Y-m-d") . '</p>
+                          <p>Release Date: <span id="certificateDate">[DATE]</span></p>
                           <p><strong>Authorized Signatory</strong></p>
                           <p>______________________________</p>
                         </div>';
 
-                  // Print button
+                  // Date input and Print button
+                  echo '<div class="form-group mb-3">
+                          <label for="certificateDateInput">Select Date</label>
+                          <input type="date" id="certificateDateInput" class="form-control" required>
+                        </div>';
                   echo '<button onclick="printCertificate()" class="btn btn-primary">Print Certificate</button>';
               }
 
@@ -103,59 +107,80 @@
 
 </main><!-- End #main -->
 
-    <!-- ======= Footer ======= -->
-    <?php
-        include("admin_footer.php");
-    ?>
+<!-- ======= Footer ======= -->
+<?php
+    include("admin_footer.php");
+?>
 
-    <!-- Include jQuery and DataTables script -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
+<!-- Include jQuery and DataTables script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
 
-    <script>
-      $(document).ready(function() {
-          $('#violationsTable').DataTable(); // Initialize DataTable
-      });
+<script>
+  $(document).ready(function() {
+      $('#violationsTable').DataTable(); // Initialize DataTable
+  });
 
-      function printCertificate() {
-          var printContents = document.getElementById('noViolationCertificate').innerHTML;
-          var originalContents = document.body.innerHTML;
+  function printCertificate() {
+      var selectedDate = document.getElementById('certificateDateInput').value;
+      var certificate = document.getElementById('noViolationCertificate');
+      var originalContents = document.body.innerHTML;
 
-          // Update status to 'Verified'
-          $.ajax({
-              url: 'process/update_status.php',
-              method: 'POST',
-              data: { licensed_no: '<?php echo $licensed_no; ?>' },
-              success: function(response) {
+      if (!selectedDate) {
+          alert('Please select a date before printing.');
+          return;
+      }
+
+      // Update the certificate release date
+      document.getElementById('certificateDate').innerText = selectedDate;
+      certificate.style.display = 'block'; // Show the certificate
+
+      // Update status and release date in the database
+      $.ajax({
+          url: 'process/update_status.php',
+          method: 'POST',
+          data: {
+              licensed_no: '<?php echo $licensed_no; ?>',
+              release_date: selectedDate,
+              status: 'Verified'
+          },
+          success: function(response) {
+              if (response.success) {
                   alert('Status updated to Verified.');
               }
-          });
 
-          document.body.innerHTML = printContents;
-          window.print();
-          document.body.innerHTML = originalContents;
-      }
-    </script>
+              // Print the certificate
+              var printContents = certificate.innerHTML;
+              document.body.innerHTML = printContents;
+              window.print();
+              document.body.innerHTML = originalContents;
+          },
+          error: function() {
+              alert('Error updating status.');
+          }
+      });
+  }
+</script>
 
-    <style>
-      .certificate {
-          text-align: center;
-          border: 2px solid #000;
-          padding: 20px;
-          width: 70%;
-          margin: 20px auto;
-          font-family: Arial, sans-serif;
-      }
+<style>
+  .certificate {
+      text-align: center;
+      border: 2px solid #000;
+      padding: 20px;
+      width: 70%;
+      margin: 20px auto;
+      font-family: Arial, sans-serif;
+  }
 
-      .certificate h2 {
-          margin-bottom: 30px;
-      }
+  .certificate h2 {
+      margin-bottom: 30px;
+  }
 
-      .certificate p {
-          margin-bottom: 20px;
-      }
-    </style>
+  .certificate p {
+      margin-bottom: 20px;
+  }
+</style>
 
 </body>
 </html>

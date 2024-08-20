@@ -98,7 +98,7 @@
                                         <th scope="col">Username</th>
                                         <th scope="col">Role</th>
                                         <th scope="col">Status</th>
-                                        <th scope="col">Actions</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -117,13 +117,35 @@
                                             echo "<td>".$row['username']."</td>";
                                             echo "<td>".$row['role']."</td>";
                                             echo "<td>".$row['status']."</td>";
-                                            echo "<td class='d-flex'>";
-                                            echo "<a class='btn btn-secondary me-2' href='edit_user.php?user_id=" . htmlspecialchars($row['user_id']) . "'>Edit</a>";
-                                            echo "<button class='btn btn-danger' data-toggle='modal' data-target='#deleteModal" . $row['user_id'] . "'>Delete</button>";
-                                            echo "</td>";
+
                                             echo "</tr>";
 
                                             $count++;
+
+
+
+
+
+                                            // edit Modal
+                                            echo "<div class='modal fade' id='editModal" . $row['user_id'] . "' tabindex='-1' role='dialog' aria-labelledby='deleteModalLabel" . $row['user_id'] . "' aria-hidden='true'>";
+                                            echo "<div class='modal-dialog' role='document'>";
+                                            echo "<div class='modal-content'>";
+                                            echo "<div class='modal-header'>";
+                                            echo "<h5 class='modal-title' id='deleteModalLabel" . $row['user_id'] . "'>Delete User</h5>";
+                                            echo "</div>";
+                                            echo "<div class='modal-body'>";
+                                            echo "<p>Are you sure you want to delete this user?</p>";
+                                            echo "</div>";
+                                            echo "<div class='modal-footer'>";
+                                            echo "<form action='process_code/user_edit.php' method='POST' style='display:inline;'>";
+                                            echo "<input type='hidden' name='user_id' value='" . $row['user_id'] . "'>";
+                                            echo "<button type='submit' class='btn btn-danger'>Delete</button>";
+                                            echo "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancel</button>";
+                                            echo "</form>";
+                                            echo "</div>";
+                                            echo "</div>";
+                                            echo "</div>";
+                                            echo "</div>";
 
                                             // Delete Modal
                                             echo "<div class='modal fade' id='deleteModal" . $row['user_id'] . "' tabindex='-1' role='dialog' aria-labelledby='deleteModalLabel" . $row['user_id'] . "' aria-hidden='true'>";

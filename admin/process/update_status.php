@@ -1,20 +1,22 @@
 <?php
-    include("connection.php"); // Include your database connection
+include("connection.php"); // Include your database connection
 
-    if (isset($_POST['licensed_no'])) {
-        $licensed_no = $_POST['licensed_no'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $licensed_no = $_POST['licensed_no'];
+    $release_date = $_POST['release_date'];
+    $status = $_POST['status'];
 
-        // Update status to 'Verified' for the given license number
-        $stmt = $connection->prepare("UPDATE profiles SET status = 'Verified' WHERE licensed_no = ?");
-        $stmt->bind_param('s', $licensed_no);
-        if ($stmt->execute()) {
-            echo 'Status updated to Verified.';
-        } else {
-            echo 'Failed to update status.';
-        }
+    // Update the database
+    $stmt = $connection->prepare("UPDATE profiles SET status = ?, released_date = ? WHERE licensed_no = ?");
+    $stmt->bind_param('sss', $status, $release_date, $licensed_no);
 
-        $stmt->close();
+    if ($stmt->execute()) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false]);
     }
 
+    $stmt->close();
     $connection->close();
+}
 ?>

@@ -70,7 +70,6 @@
                                     </select>
                                 </div>
 
-
                                 <div class="col-md-4">
                                     <label for="police_status" class="form-label">Police Status</label>
                                     <input type="text" class="form-control" id="police_status" name="status" required>
@@ -116,11 +115,94 @@
                                             echo "<td>".$row['police_lastname']."</td>";
                                             echo "<td>".$row['rank']."</td>";
                                             echo "<td>".$row['status']."</td>";
-                                            echo "<td class='d-flex'>";
-                                            echo "<a class='btn btn-primary me-2' href='edit_police.php?police_id=" . htmlspecialchars($row['assign_id']) . "'>Edit</a>";
-                                            echo "<a class='btn btn-danger me-2' href='delete_police.php?police_id=" . htmlspecialchars($row['assign_id']) . "'>Delete</a>";
-                                            echo "</td>";
+                                            echo "<td>
+                                            <div class='d-flex'>
+                                                <button data-bs-toggle='modal' data-bs-target='#edit_police" . htmlspecialchars($row['assign_id']) . "' class='btn btn-primary btn-md'>Edit</button>
+                                                <span class='mx-1'></span>
+                                                <a data-bs-toggle='modal' data-bs-target='#delete_police" . htmlspecialchars($row['assign_id']) . "' class='btn btn-danger btn-md'>Delete</a>
+                                            </div>
+                                        </td>";
                                             echo "</tr>";
+
+                                            // Modal for editing police details
+                                            echo "<div class='modal fade' id='edit_police" . htmlspecialchars($row['assign_id']) . "' tabindex='-1' aria-labelledby='editModalLabel" . htmlspecialchars($row['assign_id']) . "' aria-hidden='true'>";
+                                            echo "<div class='modal-dialog'>";
+                                            echo "<div class='modal-content'>";
+                                            echo "<div class='modal-header'>";
+                                            echo "<h5 class='modal-title' id='editModalLabel" . htmlspecialchars($row['assign_id']) . "'>Edit Police Details</h5>";
+                                            echo "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
+                                            echo "</div>";
+                                            echo "<div class='modal-body'>";
+
+                                            // Form for editing police details
+                                            echo "<form action='process/assign_patrol_edit.php' method='POST'>";
+                                            echo "<input type='hidden' name='assign_id' value='" . htmlspecialchars($row['assign_id']) . "'>";
+
+                                            // Police Firstname
+                                            echo "<div class='form-group mb-3'>";
+                                            echo "<label for='police_firstname" . htmlspecialchars($row['assign_id']) . "'>Police Firstname</label>";
+                                            echo "<input type='text' class='form-control' id='police_firstname" . htmlspecialchars($row['assign_id']) . "' name='police_firstname' value='" . htmlspecialchars($row['police_firstname']) . "'>";
+                                            echo "</div>";
+
+                                            // Police Lastname
+                                            echo "<div class='form-group mb-3'>";
+                                            echo "<label for='police_lastname" . htmlspecialchars($row['assign_id']) . "'>Police Lastname</label>";
+                                            echo "<input type='text' class='form-control' id='police_lastname" . htmlspecialchars($row['assign_id']) . "' name='police_lastname' value='" . htmlspecialchars($row['police_lastname']) . "'>";
+                                            echo "</div>";
+
+                                            // Police Rank as Dropdown
+                                            echo "<div class='form-group mb-3'>";
+                                            echo "<label for='rank" . htmlspecialchars($row['assign_id']) . "'>Police Rank</label>";
+                                            echo "<select class='form-control' id='rank" . htmlspecialchars($row['assign_id']) . "' name='rank'>";
+
+                                            // Add options for ranks
+                                            $rankTypes = ["Police Officer I", "Police Officer II", "Police Officer III", "Senior Police Officer I", "Senior Police Officer II", "Senior Police Officer III", "Senior Police Officer IV", "Chief Inspector", "Superintendent", "Senior Superintendent", "Chief Superintendent", "Police Director", "Police Deputy Director General", "Police Director General"];
+                                            foreach ($rankTypes as $type) {
+                                                $selected = ($type == $row['rank']) ? "selected" : "";
+                                                echo "<option value='$type' $selected>$type</option>";
+                                            }
+
+                                            echo "</select>";
+                                            echo "</div>";
+
+                                            // Police Status
+                                            echo "<div class='form-group mb-3'>";
+                                            echo "<label for='status" . htmlspecialchars($row['assign_id']) . "'>Status</label>";
+                                            echo "<input type='text' class='form-control' id='status" . htmlspecialchars($row['assign_id']) . "' name='status' value='" . htmlspecialchars($row['status']) . "'>";
+                                            echo "</div>";
+
+                                            echo "</div>";
+                                            echo "<div class='modal-footer'>";
+                                            echo "<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>";
+                                            echo "<button type='submit' class='btn btn-primary' name='update_violation'>Save changes</button>";
+                                            echo "</div>";
+                                            echo "</form>";
+
+                                            echo "</div>";
+                                            echo "</div>";
+                                            echo "</div>";
+
+                                            // Modal for deleting police record
+                                            echo "<div class='modal fade' id='delete_police" . htmlspecialchars($row['assign_id']) . "' tabindex='-1' aria-labelledby='deleteModalLabel" . htmlspecialchars($row['assign_id']) . "' aria-hidden='true'>";
+                                            echo "<div class='modal-dialog'>";
+                                            echo "<div class='modal-content'>";
+                                            echo "<div class='modal-header'>";
+                                            echo "<h5 class='modal-title' id='deleteModalLabel" . htmlspecialchars($row['assign_id']) . "'>Delete Police Record</h5>";
+                                            echo "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
+                                            echo "</div>";
+                                            echo "<div class='modal-body'>";
+                                            echo "<p>Are you sure you want to delete the police record of " . htmlspecialchars($row['police_firstname']) . " " . htmlspecialchars($row['police_lastname']) . "?</p>";
+                                            echo "</div>";
+                                            echo "<div class='modal-footer'>";
+                                            echo "<form action='process/delete_police_assign.php' method='POST'>";
+                                            echo "<input type='hidden' name='assign_id' value='" . htmlspecialchars($row['assign_id']) . "'>";
+                                            echo "<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancel</button>";
+                                            echo "<button type='submit' class='btn btn-danger' name='delete_violation'>Delete</button>";
+                                            echo "</form>";
+                                            echo "</div>";
+                                            echo "</div>";
+                                            echo "</div>";
+                                            echo "</div>";
 
                                             $count++;
                                         }

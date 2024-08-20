@@ -47,14 +47,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                       $violation_time, $evidence_path, $additional_notes,
                       $status, $driver_firstname, $driver_lastname, $driver_licensed);
 
-    if ($stmt->execute()) {
-        echo "<script>alert('Violation recorded successfully');</script>";
-        echo "<script>window.location.href='../encode_violation.php'</script>";
-    } else {
-        echo "<script>alert('Failed to record violation');</script>";
-    }
-
-    $stmt->close();
-    $connection->close();
+                      if ($stmt->execute()) {
+                        echo "<script>alert('Violation recorded successfully');</script>";
+                        echo "<script>window.location.href='../encode_violation.php'</script>";
+                    } else {
+                        echo "<script>alert('Failed to record violation');</script>";
+                    }
 }
 ?>

@@ -78,7 +78,7 @@
                                             echo "<td class='d-flex'>";
                                             echo "<a class='btn btn-secondary me-2' href='assign_police_patrol_page.php?patrol_id=" . htmlspecialchars($row['patrol_id']) . "'>Assign</a>";
                                             echo "<button class='btn btn-primary me-2' data-toggle='modal' data-target='#editModal" . $row['patrol_id'] . "'>Edit</button>";
-                                            echo "<button class='btn btn-danger' data-toggle='modal' data-target='#deleteModal" . $row['patrol_id'] . "'>Delete</button>";
+
                                             echo "</td>";
                                             echo "</tr>";
 
