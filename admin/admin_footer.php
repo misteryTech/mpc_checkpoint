@@ -1,7 +1,7 @@
 <footer id="footer" class="footer">
 <div class="credits">
 
-Thesis <a href="#">Template</a>
+Developed By: <a href="#"> MPC-STUDENTS</a>
 </div>
             </div>
   </footer><!-- End Footer -->
