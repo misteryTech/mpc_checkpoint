@@ -90,13 +90,6 @@
         </a>
       </li>
 
-      <li>
-        <a href="released_cert.php">
-          <i class="bi bi-circle"></i><span>Released Certification</span>
-        </a>
-      </li>
-
-
 
     </ul>
   </li><!-- End Components Nav -->

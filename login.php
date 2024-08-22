@@ -1,9 +1,19 @@
 <?php
     include('include/header.php');
 ?>
+
+<style>
+      main.login_bg{
+            background-image: url("assets/img/pnp_login.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+
+        }
+
+</style>
 <body>
 
-  <main>
+  <main class="login_bg">
     <div class="container">
 
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
@@ -54,7 +64,7 @@
                       <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="pages-register.html">Create an account</a></p>
+                      <p class="small mb-0">Don't have account? <a href="index.php">Request Profile</a></p>
                     </div>
                   </form>
 

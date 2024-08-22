@@ -13,11 +13,26 @@
 
 
 
-    $stmt_query = $connection->prepared("SELECT COUNT(*) as count FROM profiles");
+    $stmt_query = $connection->prepare("SELECT COUNT(*) as count FROM profiles");
     $stmt_query->execute();
     $stmt_result  = $stmt_query->get_result();
-    $
+    $stmt_result_count = $stmt_result->fetch_assoc()['count'];
 
+
+
+
+    $violation_query =  $connection->prepare("SELECT  COUNT(*) as count_violation FROM traffic_violations");
+    $violation_query->execute();
+    $violation_result = $violation_query->get_result();
+    $violation_result_count = $violation_result->fetch_assoc()['count_violation'];
+
+
+
+
+    $release_query = $connection->prepare("SELECT COUNT(*) as count_release FROM profiles WHERE status='verified'");
+    $release_query->execute();
+    $release_result = $release_query->get_result();
+    $release_result_count = $release_result->fetch_assoc()['count_release'];
 ?>
 
 
@@ -57,8 +72,8 @@
                       <i class="bi bi-person"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>
-                      <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                      <h6><?php echo $stmt_result_count; ?></h6>
+
 
                     </div>
                   </div>
@@ -81,8 +96,8 @@
                       <i class="bi bi-book"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>$3,264</h6>
-                      <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                      <h6><?php echo $violation_result_count; ?></h6>
+
 
                     </div>
                   </div>
@@ -106,8 +121,8 @@
                       <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>1244</h6>
-                      <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                      <h6><?php echo $release_result_count; ?></h6>
+
 
                     </div>
                   </div>

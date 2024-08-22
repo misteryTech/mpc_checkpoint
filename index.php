@@ -1,9 +1,16 @@
 <?php
     include('include/header.php');
 ?>
+
+<style>
+  main.request_profile{
+    background-image: url("assets/img/pnp_background.jpg");
+  }
+
+</style>
 <body>
 
-  <main>
+  <main  class="request_profile">
     <div class="container">
 
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
@@ -14,7 +21,7 @@
               <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
                   <img src="assets/img/pnp.png" alt="">
-                  <span class="d-none d-lg-block">NiceAdmin</span>
+                  <span class="d-none d-lg-block">Request for Profiling</span>
                 </a>
               </div><!-- End Logo -->
 
